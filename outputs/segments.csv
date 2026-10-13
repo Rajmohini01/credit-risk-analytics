@@ -1,0 +1,5 @@
+segment,customers,default_rate_pct,avg_limit,avg_bill,avg_utilization,avg_payment_ratio,avg_risk_score,share_pct
+At-Risk,8368,45.602,102226.338,47189.687,0.474,0.162,0.716,27.9
+Dormant,3107,6.405,147811.394,3752.933,0.025,1.096,0.199,10.4
+Revolver,6782,20.392,115644.353,45248.123,0.399,0.559,0.459,22.6
+Transactor,11743,10.244,137127.651,48317.382,0.361,1.154,0.28,39.1

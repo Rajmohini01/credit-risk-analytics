@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Credit Risk & Spending Dashboard</title>
+<style>
+:root{--bg:#f4f6fa;--card:#fff;--text:#1b2230;--muted:#6a7385;--accent:#2f6fed;--bad:#d9534f;--line:#e3e7ee;--track:#eef1f6;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f131a;--card:#171c26;--text:#e8ecf3;--muted:#98a2b5;--accent:#6b9bff;--bad:#ff7b72;--line:#262d3b;--track:#222938}}
+:root[data-theme="dark"]{--bg:#0f131a;--card:#171c26;--text:#e8ecf3;--muted:#98a2b5;--accent:#6b9bff;--bad:#ff7b72;--line:#262d3b;--track:#222938}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:14px/1.45 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+.wrap{max-width:1100px;margin:0 auto;padding:18px 14px 40px}
+h1{font-size:22px;margin:0 0 2px}.sub{color:var(--muted);margin:0 0 14px;font-size:13px}
+.filters{display:flex;flex-wrap:wrap;gap:10px;align-items:end;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;margin-bottom:14px}
+label{display:flex;flex-direction:column;font-size:12px;color:var(--muted);gap:4px}
+select,button{font:inherit;padding:7px 10px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--text)}
+button{cursor:pointer;background:var(--accent);color:#fff;border-color:var(--accent)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:14px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px}
+.kpi b{display:block;font-size:24px;margin-top:2px}.kpi span{color:var(--muted);font-size:12px}.kpi small{color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;min-width:0}
+.card h2{font-size:14px;margin:0 0 2px}.card p{margin:0 0 10px;color:var(--muted);font-size:12px}
+.row{display:grid;grid-template-columns:92px 1fr 88px;gap:8px;align-items:center;margin:6px 0;font-size:12px}
+.lab{color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.track{position:relative;height:14px;background:var(--track);border-radius:7px}
+.fill{height:100%;border-radius:7px;background:var(--accent)}.fill.hot{background:var(--bad)}
+.avg{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--text);opacity:.55}
+.val{text-align:right;font-variant-numeric:tabular-nums}.val i{color:var(--muted);font-style:normal;font-size:11px}
+.legend{font-size:11px;color:var(--muted);margin-top:8px}
+.note{margin-top:16px;color:var(--muted);font-size:12px}
+.insight{background:var(--card);border-left:4px solid var(--accent);border-radius:8px;padding:10px 12px;margin-bottom:14px}
+</style></head><body><div class="wrap">
+<h1>Credit Risk & Spending Dashboard</h1>
+<p class="sub">30,000 credit card customers · 6 months of behavior · synthetic demo data</p>
+<div class="filters">
+<label>Segment<select id="f-seg"></select></label>
+<label>Age group<select id="f-age"></select></label>
+<label>Credit limit band<select id="f-lim"></select></label>
+<button id="reset">Reset filters</button></div>
+<div class="kpis" id="kpis"></div>
+<div class="insight" id="insight"></div>
+<div class="grid">
+<div class="card"><h2>Default rate by months delayed</h2><p>Late months out of the last 6</p><div id="c-del"></div></div>
+<div class="card"><h2>Default rate by credit utilization</h2><p>Average bill / credit limit</p><div id="c-ub"></div></div>
+<div class="card"><h2>Default rate by segment</h2><p>Behavior-based customer groups</p><div id="c-seg"></div></div>
+<div class="card"><h2>Default rate by age group</h2><p>&nbsp;</p><div id="c-age"></div></div>
+<div class="card"><h2>Default rate by credit limit</h2><p>Limit used as an income proxy</p><div id="c-lim"></div></div>
+<div class="card"><h2>Model risk deciles (test set)</h2><p>Decile 1 = riskiest 10% by model score</p><div id="c-dec"></div></div>
+</div>
+<p class="legend">Black marker = average of the current selection. Red bars are above 1.25x the selection average. Model deciles are not affected by filters.</p>
+<p class="note">Data is synthetic and mirrors the UCI "Default of Credit Card Clients" schema. Re-run the pipeline on the real file to refresh.</p>
+</div>
+<script>
+const D=__DATA__;
+const sel={seg:-1,age:-1,lim:-1};
+const $=id=>document.getElementById(id);
+const fmt=n=>n.toLocaleString("en-US");
+function fillSel(id,list,key){const s=$(id);s.innerHTML='<option value="-1">All</option>'+list.map((x,i)=>`<option value="${i}">${x}</option>`).join("");s.onchange=()=>{sel[key]=+s.value;render()}}
+fillSel("f-seg",D.dims.seg,"seg");fillSel("f-age",D.dims.age,"age");fillSel("f-lim",D.dims.lim,"lim");
+$("reset").onclick=()=>{["seg","age","lim"].forEach(k=>{sel[k]=-1;$("f-"+k).value="-1"});render()};
+const dimIdx={age:0,lim:1,seg:2,del:3,ub:4};
+function rows(){return D.rows.filter(r=>(sel.age<0||r[0]==sel.age)&&(sel.lim<0||r[1]==sel.lim)&&(sel.seg<0||r[2]==sel.seg))}
+function by(rs,key){const k=D.dims[key].length,o=Array.from({length:k},()=>[0,0]);rs.forEach(r=>{const i=r[dimIdx[key]];o[i][0]+=r[5];o[i][1]+=r[6]});return o}
+function bars(id,key,rs,avg){
+  const a=by(rs,key),rates=a.map(x=>x[0]?x[1]/x[0]*100:0),mx=Math.max(...rates,avg)*1.1||1;
+  $(id).innerHTML=a.map((x,i)=>{const r=rates[i];return `<div class="row"><span class="lab" title="${D.dims[key][i]}">${D.dims[key][i]}</span>
+  <div class="track"><div class="fill ${r>avg*1.25?"hot":""}" style="width:${x[0]?r/mx*100:0}%"></div><div class="avg" style="left:${avg/mx*100}%"></div></div>
+  <span class="val">${x[0]?r.toFixed(1)+"%":"-"} <i>n=${fmt(x[0])}</i></span></div>`}).join("")}
+function render(){
+  const rs=rows();let n=0,d=0,su=0,sp=0;rs.forEach(r=>{n+=r[5];d+=r[6];su+=r[7];sp+=r[8]});
+  const avg=n?d/n*100:0,all=D.rows.reduce((t,r)=>[t[0]+r[5],t[1]+r[6]],[0,0]),allr=all[1]/all[0]*100;
+  $("kpis").innerHTML=[["Customers",fmt(n),`${(n/all[0]*100).toFixed(0)}% of portfolio`],["Defaults",fmt(d),"next-month defaults"],
+   ["Default rate",avg.toFixed(1)+"%",`portfolio ${allr.toFixed(1)}%`],["Avg utilization",n?(su/n*100).toFixed(0)+"%":"-","bill / limit"],
+   ["Payment ratio",n?(sp/n).toFixed(2):"-","paid / billed"]].map(k=>`<div class="kpi"><span>${k[0]}</span><b>${k[1]}</b><small>${k[2]}</small></div>`).join("");
+  $("insight").textContent=n?`This selection defaults at ${avg.toFixed(1)}%, ${(avg/allr).toFixed(2)}x the portfolio rate of ${allr.toFixed(1)}%.`:"No customers match this selection.";
+  bars("c-del","del",rs,avg);bars("c-ub","ub",rs,avg);bars("c-seg","seg",rs,avg);bars("c-age","age",rs,avg);bars("c-lim","lim",rs,avg);
+}
+$("c-dec").innerHTML=D.dec.map(r=>`<div class="row"><span class="lab">Decile ${r[0]}</span><div class="track"><div class="fill ${r[0]<=3?"hot":""}" style="width:${r[1]/70*100}%"></div></div><span class="val">${r[1].toFixed(0)}% <i>cum ${r[2].toFixed(0)}%</i></span></div>`).join("");
+render();
+</script></body></html>

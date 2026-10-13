@@ -1,0 +1,78 @@
+name: Credit Risk Pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt pytest
+
+      - name: Generate demo data (only if no dataset is committed)
+        run: test -f data/raw/credit_card_clients.csv || python src/generate_data.py
+
+      - name: Run analysis pipeline
+        run: python src/pipeline.py
+
+      - name: Build README and dashboard
+        run: |
+          python src/build_readme.py
+          python src/build_dashboard.py
+
+      - name: Run tests
+        run: pytest -q
+
+      - name: Assemble site
+        run: |
+          mkdir -p _site/figures
+          cp dashboard/credit_risk_dashboard.html _site/index.html
+          cp reports/figures/*.png _site/figures/
+
+      - name: Upload project outputs
+        uses: actions/upload-artifact@v4
+        with:
+          name: project-outputs
+          path: |
+            outputs
+            dashboard
+            reports/figures
+            README.md
+
+      - name: Upload site for GitHub Pages
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

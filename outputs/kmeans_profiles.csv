@@ -1,0 +1,5 @@
+kmeans_cluster,customers,default_rate_pct,utilization_avg,payment_ratio,avg_delay,bill_volatility
+0,3779,60.916,0.602,0.063,1.419,0.069
+1,10384,8.176,0.168,1.157,0.012,0.052
+2,7267,26.751,0.305,0.281,0.345,0.058
+3,8570,17.573,0.555,0.912,0.054,0.081

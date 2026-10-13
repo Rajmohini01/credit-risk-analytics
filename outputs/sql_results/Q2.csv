@@ -1,0 +1,11 @@
+education_label,marriage_label,customers,default_rate_pct
+High school,Married,2262,23.34
+Other,Single,245,23.27
+Graduate school,Married,4877,22.62
+Graduate school,Single,5614,22.35
+Graduate school,Other,159,22.01
+University,Married,6356,21.71
+High school,Single,2609,21.5
+University,Single,7423,21.46
+University,Other,186,20.43
+Other,Married,180,15.56

@@ -1,0 +1,770 @@
+{
+  "cleaning_log": [
+    "Loaded 30,000 rows x 25 columns",
+    "Missing values: 0; duplicate IDs: 0",
+    "EDUCATION: 304 rows with undefined codes (0, 5, 6) merged into 'Other' (4)",
+    "MARRIAGE: 73 rows with undefined code 0 merged into 'Other' (3)",
+    "BILL_AMT: 530 customers have negative bills (credit balances/refunds); kept, but clipped at 0 when computing payment ratio"
+  ],
+  "sql": {
+    "Q1": {
+      "title": "What is the overall default rate?",
+      "rows": [
+        {
+          "total_customers": 30000,
+          "defaults": 6601,
+          "default_rate_pct": 22.0
+        }
+      ]
+    },
+    "Q2": {
+      "title": "Default rate by education and marital status",
+      "rows": [
+        {
+          "education_label": "High school",
+          "marriage_label": "Married",
+          "customers": 2262,
+          "default_rate_pct": 23.34
+        },
+        {
+          "education_label": "Other",
+          "marriage_label": "Single",
+          "customers": 245,
+          "default_rate_pct": 23.27
+        },
+        {
+          "education_label": "Graduate school",
+          "marriage_label": "Married",
+          "customers": 4877,
+          "default_rate_pct": 22.62
+        },
+        {
+          "education_label": "Graduate school",
+          "marriage_label": "Single",
+          "customers": 5614,
+          "default_rate_pct": 22.35
+        },
+        {
+          "education_label": "Graduate school",
+          "marriage_label": "Other",
+          "customers": 159,
+          "default_rate_pct": 22.01
+        },
+        {
+          "education_label": "University",
+          "marriage_label": "Married",
+          "customers": 6356,
+          "default_rate_pct": 21.71
+        },
+        {
+          "education_label": "High school",
+          "marriage_label": "Single",
+          "customers": 2609,
+          "default_rate_pct": 21.5
+        },
+        {
+          "education_label": "University",
+          "marriage_label": "Single",
+          "customers": 7423,
+          "default_rate_pct": 21.46
+        },
+        {
+          "education_label": "University",
+          "marriage_label": "Other",
+          "customers": 186,
+          "default_rate_pct": 20.43
+        },
+        {
+          "education_label": "Other",
+          "marriage_label": "Married",
+          "customers": 180,
+          "default_rate_pct": 15.56
+        }
+      ]
+    },
+    "Q3": {
+      "title": "Default rate by age group and credit-limit band (limit is the income proxy)",
+      "rows": [
+        {
+          "age_group": "50-59",
+          "limit_band": "1: <=50k",
+          "customers": 400,
+          "default_rate_pct": 32.75
+        },
+        {
+          "age_group": "30-39",
+          "limit_band": "1: <=50k",
+          "customers": 1650,
+          "default_rate_pct": 31.82
+        },
+        {
+          "age_group": "21-29",
+          "limit_band": "1: <=50k",
+          "customers": 925,
+          "default_rate_pct": 31.68
+        },
+        {
+          "age_group": "40-49",
+          "limit_band": "1: <=50k",
+          "customers": 1113,
+          "default_rate_pct": 30.1
+        },
+        {
+          "age_group": "60+",
+          "limit_band": "1: <=50k",
+          "customers": 120,
+          "default_rate_pct": 29.17
+        },
+        {
+          "age_group": "40-49",
+          "limit_band": "2: 50-100k",
+          "customers": 2929,
+          "default_rate_pct": 25.06
+        },
+        {
+          "age_group": "30-39",
+          "limit_band": "2: 50-100k",
+          "customers": 4406,
+          "default_rate_pct": 24.56
+        },
+        {
+          "age_group": "50-59",
+          "limit_band": "2: 50-100k",
+          "customers": 998,
+          "default_rate_pct": 24.45
+        },
+        {
+          "age_group": "21-29",
+          "limit_band": "2: 50-100k",
+          "customers": 2283,
+          "default_rate_pct": 22.86
+        },
+        {
+          "age_group": "60+",
+          "limit_band": "2: 50-100k",
+          "customers": 333,
+          "default_rate_pct": 21.62
+        },
+        {
+          "age_group": "50-59",
+          "limit_band": "3: 100-200k",
+          "customers": 1021,
+          "default_rate_pct": 21.06
+        },
+        {
+          "age_group": "60+",
+          "limit_band": "3: 100-200k",
+          "customers": 322,
+          "default_rate_pct": 20.19
+        },
+        {
+          "age_group": "30-39",
+          "limit_band": "3: 100-200k",
+          "customers": 4498,
+          "default_rate_pct": 18.83
+        },
+        {
+          "age_group": "40-49",
+          "limit_band": "3: 100-200k",
+          "customers": 2920,
+          "default_rate_pct": 18.49
+        },
+        {
+          "age_group": "21-29",
+          "limit_band": "3: 100-200k",
+          "customers": 2344,
+          "default_rate_pct": 17.92
+        }
+      ]
+    },
+    "Q4": {
+      "title": "Default rate by credit utilization band",
+      "rows": [
+        {
+          "util_band": "1: 0-20%",
+          "customers": 9064,
+          "default_rate_pct": 12.09
+        },
+        {
+          "util_band": "2: 20-40%",
+          "customers": 8138,
+          "default_rate_pct": 18.38
+        },
+        {
+          "util_band": "3: 40-60%",
+          "customers": 7193,
+          "default_rate_pct": 26.19
+        },
+        {
+          "util_band": "4: 60-80%",
+          "customers": 3959,
+          "default_rate_pct": 34.4
+        },
+        {
+          "util_band": "5: >80%",
+          "customers": 1646,
+          "default_rate_pct": 46.35
+        }
+      ]
+    },
+    "Q5": {
+      "title": "Do late payments in earlier months predict default? (number of delayed months out of 6)",
+      "rows": [
+        {
+          "months_delayed": 0,
+          "customers": 18010,
+          "defaults": 2014,
+          "default_rate_pct": 11.18
+        },
+        {
+          "months_delayed": 1,
+          "customers": 3622,
+          "defaults": 771,
+          "default_rate_pct": 21.29
+        },
+        {
+          "months_delayed": 2,
+          "customers": 2148,
+          "defaults": 636,
+          "default_rate_pct": 29.61
+        },
+        {
+          "months_delayed": 3,
+          "customers": 1680,
+          "defaults": 637,
+          "default_rate_pct": 37.92
+        },
+        {
+          "months_delayed": 4,
+          "customers": 1455,
+          "defaults": 625,
+          "default_rate_pct": 42.96
+        },
+        {
+          "months_delayed": 5,
+          "customers": 1400,
+          "defaults": 759,
+          "default_rate_pct": 54.21
+        },
+        {
+          "months_delayed": 6,
+          "customers": 1685,
+          "defaults": 1159,
+          "default_rate_pct": 68.78
+        }
+      ]
+    },
+    "Q6": {
+      "title": "Six-month trend of average bill and payment, defaulters vs non-defaulters (month 6 = oldest)",
+      "rows": [
+        {
+          "default_flag": 0,
+          "bill_m6": 40867.0,
+          "bill_m5": 40793.0,
+          "bill_m4": 40798.0,
+          "bill_m3": 40683.0,
+          "bill_m2": 40748.0,
+          "bill_m1": 40909.0,
+          "paid_m6": 33478.0,
+          "paid_m3": 32425.0,
+          "paid_m1": 32467.0
+        },
+        {
+          "default_flag": 1,
+          "bill_m6": 49492.0,
+          "bill_m5": 49244.0,
+          "bill_m4": 49415.0,
+          "bill_m3": 49466.0,
+          "bill_m2": 49313.0,
+          "bill_m1": 49513.0,
+          "paid_m6": 21843.0,
+          "paid_m3": 20095.0,
+          "paid_m1": 16797.0
+        }
+      ]
+    },
+    "Q7": {
+      "title": "Average spend, utilization and repayment ratio: defaulters vs non-defaulters",
+      "rows": [
+        {
+          "default_flag": 0,
+          "customers": 23399,
+          "avg_monthly_bill": 40800.0,
+          "avg_utilization": 0.335,
+          "avg_payment_ratio": 0.829
+        },
+        {
+          "default_flag": 1,
+          "customers": 6601,
+          "avg_monthly_bill": 49407.0,
+          "avg_utilization": 0.479,
+          "avg_payment_ratio": 0.415
+        }
+      ]
+    },
+    "Q8": {
+      "title": "Top 3 highest-utilization customers within each age group (window function)",
+      "rows": [
+        {
+          "id": 10083,
+          "age_group": "21-29",
+          "utilization": 1.26,
+          "default_flag": 1,
+          "risk_rank": 1
+        },
+        {
+          "id": 23430,
+          "age_group": "21-29",
+          "utilization": 1.26,
+          "default_flag": 1,
+          "risk_rank": 2
+        },
+        {
+          "id": 8450,
+          "age_group": "21-29",
+          "utilization": 1.25,
+          "default_flag": 0,
+          "risk_rank": 3
+        },
+        {
+          "id": 17980,
+          "age_group": "30-39",
+          "utilization": 1.3,
+          "default_flag": 0,
+          "risk_rank": 1
+        },
+        {
+          "id": 3889,
+          "age_group": "30-39",
+          "utilization": 1.28,
+          "default_flag": 0,
+          "risk_rank": 2
+        },
+        {
+          "id": 8224,
+          "age_group": "30-39",
+          "utilization": 1.28,
+          "default_flag": 1,
+          "risk_rank": 3
+        },
+        {
+          "id": 25043,
+          "age_group": "40-49",
+          "utilization": 1.31,
+          "default_flag": 0,
+          "risk_rank": 1
+        },
+        {
+          "id": 24106,
+          "age_group": "40-49",
+          "utilization": 1.3,
+          "default_flag": 1,
+          "risk_rank": 2
+        },
+        {
+          "id": 8545,
+          "age_group": "40-49",
+          "utilization": 1.28,
+          "default_flag": 0,
+          "risk_rank": 3
+        },
+        {
+          "id": 8270,
+          "age_group": "50-59",
+          "utilization": 1.29,
+          "default_flag": 0,
+          "risk_rank": 1
+        },
+        {
+          "id": 17120,
+          "age_group": "50-59",
+          "utilization": 1.26,
+          "default_flag": 0,
+          "risk_rank": 2
+        },
+        {
+          "id": 25250,
+          "age_group": "50-59",
+          "utilization": 1.26,
+          "default_flag": 1,
+          "risk_rank": 3
+        },
+        {
+          "id": 27303,
+          "age_group": "60+",
+          "utilization": 1.25,
+          "default_flag": 0,
+          "risk_rank": 1
+        },
+        {
+          "id": 4223,
+          "age_group": "60+",
+          "utilization": 1.2,
+          "default_flag": 1,
+          "risk_rank": 2
+        },
+        {
+          "id": 8497,
+          "age_group": "60+",
+          "utilization": 1.17,
+          "default_flag": 0,
+          "risk_rank": 3
+        }
+      ]
+    },
+    "Q9": {
+      "title": "Cumulative share of all defaults captured by risk decile (simple rule-based score)",
+      "rows": [
+        {
+          "risk_decile": 1,
+          "customers": 3000,
+          "defaults": 1984,
+          "default_rate_pct": 66.13,
+          "cum_defaults_captured_pct": 30.06
+        },
+        {
+          "risk_decile": 2,
+          "customers": 3000,
+          "defaults": 1249,
+          "default_rate_pct": 41.63,
+          "cum_defaults_captured_pct": 48.98
+        },
+        {
+          "risk_decile": 3,
+          "customers": 3000,
+          "defaults": 831,
+          "default_rate_pct": 27.7,
+          "cum_defaults_captured_pct": 61.57
+        },
+        {
+          "risk_decile": 4,
+          "customers": 3000,
+          "defaults": 593,
+          "default_rate_pct": 19.77,
+          "cum_defaults_captured_pct": 70.55
+        },
+        {
+          "risk_decile": 5,
+          "customers": 3000,
+          "defaults": 489,
+          "default_rate_pct": 16.3,
+          "cum_defaults_captured_pct": 77.96
+        },
+        {
+          "risk_decile": 6,
+          "customers": 3000,
+          "defaults": 394,
+          "default_rate_pct": 13.13,
+          "cum_defaults_captured_pct": 83.93
+        },
+        {
+          "risk_decile": 7,
+          "customers": 3000,
+          "defaults": 341,
+          "default_rate_pct": 11.37,
+          "cum_defaults_captured_pct": 89.09
+        },
+        {
+          "risk_decile": 8,
+          "customers": 3000,
+          "defaults": 291,
+          "default_rate_pct": 9.7,
+          "cum_defaults_captured_pct": 93.5
+        },
+        {
+          "risk_decile": 9,
+          "customers": 3000,
+          "defaults": 242,
+          "default_rate_pct": 8.07,
+          "cum_defaults_captured_pct": 97.17
+        },
+        {
+          "risk_decile": 10,
+          "customers": 3000,
+          "defaults": 187,
+          "default_rate_pct": 6.23,
+          "cum_defaults_captured_pct": 100.0
+        }
+      ]
+    },
+    "Q10": {
+      "title": "Early-warning rule: 2+ delayed months OR (delayed last month AND utilization > 80%)",
+      "rows": [
+        {
+          "early_warning_flag": 0,
+          "customers": 21582,
+          "defaults": 2766,
+          "default_rate_pct": 12.82,
+          "share_of_all_defaults_pct": 41.9
+        },
+        {
+          "early_warning_flag": 1,
+          "customers": 8418,
+          "defaults": 3835,
+          "default_rate_pct": 45.56,
+          "share_of_all_defaults_pct": 58.1
+        }
+      ]
+    },
+    "Q11": {
+      "title": "Is the repayment status getting worse? (latest month vs previous month)",
+      "rows": [
+        {
+          "trend": "Worsening",
+          "customers": 8516,
+          "default_rate_pct": 29.67
+        },
+        {
+          "trend": "Improving",
+          "customers": 7938,
+          "default_rate_pct": 19.26
+        },
+        {
+          "trend": "Stable",
+          "customers": 13546,
+          "default_rate_pct": 18.79
+        }
+      ]
+    }
+  },
+  "overall": {
+    "customers": 30000,
+    "defaults": 6601,
+    "default_rate": 0.22003333333333333
+  },
+  "models": [
+    {
+      "model": "Logistic Regression",
+      "roc_auc": 0.7676,
+      "ks": 0.4051,
+      "precision": 0.4229,
+      "recall": 0.6485,
+      "f1": 0.512
+    },
+    {
+      "model": "Gradient Boosting",
+      "roc_auc": 0.7641,
+      "ks": 0.409,
+      "precision": 0.4311,
+      "recall": 0.6492,
+      "f1": 0.5181
+    },
+    {
+      "model": "Random Forest",
+      "roc_auc": 0.7629,
+      "ks": 0.4082,
+      "precision": 0.4624,
+      "recall": 0.5492,
+      "f1": 0.5021
+    }
+  ],
+  "best_model": "Logistic Regression",
+  "threshold": {
+    "best_threshold": 0.4,
+    "cost_fn": 5,
+    "cost_fp": 1,
+    "recall": 0.7674242424242425,
+    "precision": 0.3623032904148784,
+    "flagged_pct": 0.466,
+    "cost_at_best": 3318,
+    "cost_at_0.5": 3488
+  },
+  "top_features": {
+    "PAY_1": 0.0887,
+    "utilization_avg": 0.0096,
+    "BILL_AMT3": 0.0041,
+    "utilization_latest": 0.0029,
+    "avg_delay": 0.0012,
+    "PAY_6": 0.0009,
+    "BILL_AMT4": 0.0007,
+    "BILL_AMT5": 0.0006
+  },
+  "deciles": [
+    {
+      "decile": 1,
+      "customers": 600,
+      "defaults": 389,
+      "avg_score": 0.87,
+      "default_rate_pct": 64.83,
+      "cum_defaults_captured_pct": 29.47,
+      "lift": 2.95
+    },
+    {
+      "decile": 2,
+      "customers": 600,
+      "defaults": 235,
+      "avg_score": 0.7,
+      "default_rate_pct": 39.17,
+      "cum_defaults_captured_pct": 47.27,
+      "lift": 1.78
+    },
+    {
+      "decile": 3,
+      "customers": 600,
+      "defaults": 182,
+      "avg_score": 0.58,
+      "default_rate_pct": 30.33,
+      "cum_defaults_captured_pct": 61.06,
+      "lift": 1.38
+    },
+    {
+      "decile": 4,
+      "customers": 600,
+      "defaults": 126,
+      "avg_score": 0.49,
+      "default_rate_pct": 21.0,
+      "cum_defaults_captured_pct": 70.61,
+      "lift": 0.95
+    },
+    {
+      "decile": 5,
+      "customers": 600,
+      "defaults": 115,
+      "avg_score": 0.41,
+      "default_rate_pct": 19.17,
+      "cum_defaults_captured_pct": 79.32,
+      "lift": 0.87
+    },
+    {
+      "decile": 6,
+      "customers": 600,
+      "defaults": 78,
+      "avg_score": 0.34,
+      "default_rate_pct": 13.0,
+      "cum_defaults_captured_pct": 85.23,
+      "lift": 0.59
+    },
+    {
+      "decile": 7,
+      "customers": 600,
+      "defaults": 68,
+      "avg_score": 0.29,
+      "default_rate_pct": 11.33,
+      "cum_defaults_captured_pct": 90.38,
+      "lift": 0.52
+    },
+    {
+      "decile": 8,
+      "customers": 600,
+      "defaults": 54,
+      "avg_score": 0.24,
+      "default_rate_pct": 9.0,
+      "cum_defaults_captured_pct": 94.47,
+      "lift": 0.41
+    },
+    {
+      "decile": 9,
+      "customers": 600,
+      "defaults": 43,
+      "avg_score": 0.19,
+      "default_rate_pct": 7.17,
+      "cum_defaults_captured_pct": 97.73,
+      "lift": 0.33
+    },
+    {
+      "decile": 10,
+      "customers": 600,
+      "defaults": 30,
+      "avg_score": 0.14,
+      "default_rate_pct": 5.0,
+      "cum_defaults_captured_pct": 100.0,
+      "lift": 0.23
+    }
+  ],
+  "segments": [
+    {
+      "segment": "At-Risk",
+      "customers": 8368,
+      "default_rate_pct": 45.602,
+      "avg_limit": 102226.338,
+      "avg_bill": 47189.687,
+      "avg_utilization": 0.474,
+      "avg_payment_ratio": 0.162,
+      "avg_risk_score": 0.716,
+      "share_pct": 27.9
+    },
+    {
+      "segment": "Dormant",
+      "customers": 3107,
+      "default_rate_pct": 6.405,
+      "avg_limit": 147811.394,
+      "avg_bill": 3752.933,
+      "avg_utilization": 0.025,
+      "avg_payment_ratio": 1.096,
+      "avg_risk_score": 0.199,
+      "share_pct": 10.4
+    },
+    {
+      "segment": "Revolver",
+      "customers": 6782,
+      "default_rate_pct": 20.392,
+      "avg_limit": 115644.353,
+      "avg_bill": 45248.123,
+      "avg_utilization": 0.399,
+      "avg_payment_ratio": 0.559,
+      "avg_risk_score": 0.459,
+      "share_pct": 22.6
+    },
+    {
+      "segment": "Transactor",
+      "customers": 11743,
+      "default_rate_pct": 10.244,
+      "avg_limit": 137127.651,
+      "avg_bill": 48317.382,
+      "avg_utilization": 0.361,
+      "avg_payment_ratio": 1.154,
+      "avg_risk_score": 0.28,
+      "share_pct": 39.1
+    }
+  ],
+  "kmeans": [
+    {
+      "kmeans_cluster": 0,
+      "customers": 3779,
+      "default_rate_pct": 60.916,
+      "utilization_avg": 0.602,
+      "payment_ratio": 0.063,
+      "avg_delay": 1.419,
+      "bill_volatility": 0.069
+    },
+    {
+      "kmeans_cluster": 1,
+      "customers": 10384,
+      "default_rate_pct": 8.176,
+      "utilization_avg": 0.168,
+      "payment_ratio": 1.157,
+      "avg_delay": 0.012,
+      "bill_volatility": 0.052
+    },
+    {
+      "kmeans_cluster": 2,
+      "customers": 7267,
+      "default_rate_pct": 26.751,
+      "utilization_avg": 0.305,
+      "payment_ratio": 0.281,
+      "avg_delay": 0.345,
+      "bill_volatility": 0.058
+    },
+    {
+      "kmeans_cluster": 3,
+      "customers": 8570,
+      "default_rate_pct": 17.573,
+      "utilization_avg": 0.555,
+      "payment_ratio": 0.912,
+      "avg_delay": 0.054,
+      "bill_volatility": 0.081
+    }
+  ],
+  "early_warning": {
+    "flagged_pct": 0.2806,
+    "precision": 0.45557139463055357,
+    "recall": 0.5809725799121346,
+    "lift": 2.070465359629845,
+    "defaulters_caught": 3835,
+    "avg_exposure": 50882.37992177314,
+    "assumed_lgd": 0.6,
+    "assumed_success": 0.25,
+    "estimated_loss_avoided": 29270089.05,
+    "total_defaulter_exposure": 326855124.0
+  }
+}

@@ -1,0 +1,3 @@
+default_flag,customers,avg_monthly_bill,avg_utilization,avg_payment_ratio
+0,23399,40800.0,0.335,0.829
+1,6601,49407.0,0.479,0.415
